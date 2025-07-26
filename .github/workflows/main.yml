@@ -106,8 +106,7 @@ jobs:
       with:
         push: true
         context: ./src
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DockerImageName }}:${{ github.sha }}
-
+        tags: ${{ env.DockerImageName }}:${{ github.sha }}
   helm-ci:
     runs-on: ubuntu-latest
     needs: python-ci
