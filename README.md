@@ -1,55 +1,53 @@
-# Django ToDo list
+# Advanced GitHub Actions CI/CD Pipeline
 
-This is a to-do list web application with the basic features of most web apps, such as accounts/login, API, and interactive UI. 
-To complete this task, you will need:
+## 📖 Project Overview
+This project showcases the implementation of a comprehensive, production-ready CI/CD pipeline using GitHub Actions for a Django-based web application. The primary focus of this project is not the application itself, but the robust automation, repository governance, and containerization strategies applied to its deployment lifecycle.
 
-- CSS | [Skeleton](http://getskeleton.com/)
-- JS  | [jQuery](https://jquery.com/)
+## 🛠 Tech Stack & Tools
+* **CI/CD:** GitHub Actions
+* **Containerization:** Docker, DockerHub
+* **Application:** Python (Django), SQLite
+* **Testing OS:** Ubuntu, Windows
 
-## Explore
+## ⚙️ Pipeline Features & Implementation
+The workflow was heavily customized to meet strict DevOps standards:
+* **Matrix Strategy:** Configured parallel unit testing across multiple Python versions (3.8, 3.9) and Operating Systems (Ubuntu, Windows) to ensure cross-platform compatibility.
+* **Docker Integration:** Automated the building and pushing of Docker images to a DockerHub registry upon successful tests, utilizing GitHub Secrets for secure credential management.
+* **Concurrency Control:** Implemented workflow concurrency limits to automatically cancel redundant or outdated runs, saving CI minutes and preventing deployment collisions.
+* **Manual Triggers & Inputs:** Configured `workflow_dispatch` allowing manual execution of the pipeline with custom input variables (e.g., selecting specific matrix artifacts like `windows-3.8` or `ubuntu-3.9` for deployment).
+* **Environment Segregation:** Set up isolated environments (Development and Staging) with environment-specific secrets.
 
-Follow these steps to get the application up and running on your local machine (requires Python 3.8 or higher due to compatibility with Django 4):
+## 🔐 Security & Repository Governance
+To enforce code quality and secure deployments, strict repository rules were established:
+* **Branch Protection:** The `main` branch is locked. Direct commits are restricted.
+* **Mandatory CI Checks:** Pull requests cannot be merged unless the Python CI job (tests and builds) passes successfully.
+* **Manual Approvals:** Deployment to the Staging environment requires explicit manual approval from an authorized user.
 
+## 📸 Implementation Evidence
+Since repository settings and environment configurations are not publicly visible to non-admins, screenshots of the successful implementation are provided below:
 
-```
-pip install -r requirements.txt
-```
+<details>
+<summary><b>1. Branch Protection & Mandatory Status Checks</b> (Click to expand)</summary>
+<br>
+<img src="./screen_1.png" alt="Branch Protection Rules">
+<br>
+<img src="./screen_2.png" alt="Status Checks">
+</details>
 
-Create a database schema:
+<details>
+<summary><b>2. Manual Approval for Staging Environment</b> (Click to expand)</summary>
+<br>
+<img src="./screen_3.png" alt="Staging Approval">
+</details>
 
-```
-python manage.py migrate
-```
+<details>
+<summary><b>3. Workflow Concurrency & Manual Triggers</b> (Click to expand)</summary>
+<br>
+<img src="./screen_4.png" alt="Workflow Trigger">
+<br>
+<img src="./screen_5.png" alt="Concurrency in Action">
+</details>
 
-And then start the server (default is <http://localhost:8000>):
-
-```
-python manage.py runserver
-```
-
-You can now browse the [API](http://localhost:8000/api/) or start on the [landing page](http://localhost:8000/).
-
-## Task
-
-Extend the project's GitHub Actions workflow by integrating Docker to build and push images to DockerHub.
-This CI/CD enhancement involves several key tasks:
-
-1. Update your forked repository with your DockerHub username and password.
-    1. Add corresponding secrets to the repository.
-2. Update `DockerImageName` with the DockerHub image repository name.
-3. Add environment secrets for `development` and `staging` environments for your forked repository.
-4. Use Matrix to run unit tests on different Python versions (3.8, 3.9).
-5. Use Matrix to run unit tests on different OS types: Ubuntu and Windows.
-6. You should have the ability to start the workflow manually.
-7. Add input variables for the manual workflow start:
-    1. Input variables to choose which artifact from the matrix to deploy. (windows-3.8, ubuntu-3.9, etc).
-8. Add branch protection to the main branch in your fork.
-9. Add mandatory pull requests and `Python CI` job status checks for PRs.
-10. Add Manual Approval for the `staging` environment.
-11. Allow to run only one workflow per pull request (concurrency).
-12. New runs should cancel the previous runs.
-13. Create a Pull Request with the changes.
-14. Pull Requests description should also contain a reference to a workflow run with successful
-workflow execution.
-15. Provide screenshots confirming that branch protection and status checks are working as expected.
-16. Provide a screenshot confirming `staging` deployment requires manual approval.
+## 📝 Code Review & Approval
+This CI/CD implementation has been thoroughly reviewed and validated by a Senior DevOps Engineer. 
+You can view the full discussion, implementation details, and final approval in the **[Pull Request #61](https://github.com/mate-academy/devops_todolist_cicd_task_6_polish_pipeline/pull/61)**.
